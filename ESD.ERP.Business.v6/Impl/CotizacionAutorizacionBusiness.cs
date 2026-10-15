@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
@@ -273,7 +273,7 @@ namespace ESD.ERP.Business.Impl
                {
 						cotizacionProductoRepository.ActualizarPrecioMontoLote(cotizacionProductoList);
 
-						cotizacionRepository.ActualizarMonto(new Cotizacion() { CotizacionId = cotizacionAutorizacion.CotizacionId });
+						cotizacionRepository.ActualizarMonto(new Cotizacion() { CotizacionId = cotizacionAutorizacion.CotizacionId, UsuarioCreacionId = dto.UsuarioCreacionId, UsuarioModificacionId = dto.UsuarioCreacionId });
 					}
 
                tx.Complete();

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ESD.Core.Data;
@@ -256,7 +256,7 @@ namespace ESD.ERP.Repository.Impl
 			try
 			{
 				parameters.AddParameter("cotizacionId", entity.CotizacionId);
-				parameters.AddParameter("usuarioAccionId", entity.UsuarioCreacionId);
+				parameters.AddParameter("usuarioAccionId", entity.UsuarioCreacionId > 0 ? entity.UsuarioCreacionId : (entity.UsuarioModificacionId ?? 0));
 
 				DbFactory.ExecCommand(DbCommand.Create(SP_PRE_NAME, "_actualizarMonto"), parameters);
 
@@ -275,7 +275,7 @@ namespace ESD.ERP.Repository.Impl
 			{
 				parameters.AddParameter("cotizacionId", entity.CotizacionId);
 				parameters.AddParameter("estadoCotizacionId", entity.EstadoCotizacionId);
-				parameters.AddParameter("usuarioAccionId", entity.UsuarioCreacionId);
+				parameters.AddParameter("usuarioAccionId", entity.UsuarioCreacionId > 0 ? entity.UsuarioCreacionId : (entity.UsuarioModificacionId ?? 0));
 
 				DbFactory.ExecCommand(DbCommand.Create(SP_PRE_NAME, "_actualizarEstado"), parameters);
 

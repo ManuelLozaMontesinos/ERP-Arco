@@ -1,4 +1,4 @@
-﻿using ESD.Core;
+using ESD.Core;
 using ESD.Core.Logging;
 using ESD.Core.Service.DTO;
 using ESD.Core.Web;
@@ -348,7 +348,7 @@ namespace ESD.ERP.Web.Areas.VT.Controllers
             new MenuItem() { MenuItemType = MenuItemType.Exit },
             new MenuItem() { Key="soli_auto", Content="Solicitar Autorizaciones", Hidden = (model.AutorizacionPendiente == SiNoConstante.S) },
             new MenuItem() { Key="estado_auto", Content="Ver Autorizaciones", Hidden = (model.AutorizacionPendiente == SiNoConstante.N) },
-            new MenuItem() { Key="enviar_prod", Content="Enviar a Producción"},
+            new MenuItem() { Key="enviar_prod", Content="Enviar a Producci�n"},
             new MenuItem() { Key="reporte_canto", Content="Reporte Tapacanto" }
          };
 
@@ -1119,10 +1119,9 @@ namespace ESD.ERP.Web.Areas.VT.Controllers
 
          try
          {
-            model.CotizacionProductoDTO.DTOState = DTOState.Modified;
-            AuditDTO(model.CotizacionProductoDTO);
-
             CotizacionProductoDTO cotizacionProductoDTO = cotizacionProductoProxy.GetById(model.CotizacionProductoDTO);
+            cotizacionProductoDTO.DTOState = DTOState.Modified;
+            AuditDTO(cotizacionProductoDTO);
 
             cotizacionProductoProxy.Delete(cotizacionProductoDTO);
 

@@ -1,4 +1,4 @@
-﻿using ESD.Core;
+using ESD.Core;
 using ESD.Core.Logging;
 using ESD.Core.Service.DTO;
 using ESD.Core.Web;
@@ -1190,10 +1190,9 @@ namespace ESD.ERP.Web.Areas.VT.Controllers
 
          try
          {
-            model.CotizacionProductoDTO.DTOState = DTOState.Modified;
-            AuditDTO(model.CotizacionProductoDTO);
-
             CotizacionProductoDTO cotizacionProductoDTO = cotizacionProductoProxy.GetById(model.CotizacionProductoDTO);
+            cotizacionProductoDTO.DTOState = DTOState.Modified;
+            AuditDTO(cotizacionProductoDTO);
 
             cotizacionProductoProxy.Delete(cotizacionProductoDTO);
 
@@ -1254,7 +1253,7 @@ namespace ESD.ERP.Web.Areas.VT.Controllers
 
                cotizacionProductoDTO.SinSaldo = sinSaldo;
 
-               AuditDTO(model.CotizacionProductoDTO);
+               AuditDTO(cotizacionProductoDTO);
 
                cotizacionProductoProxy.ActualizarSinSaldo(cotizacionProductoDTO);
             }

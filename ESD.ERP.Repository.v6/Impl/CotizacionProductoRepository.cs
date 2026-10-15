@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -296,7 +296,7 @@ namespace ESD.ERP.Repository.Impl
                 parameters.AddParameter("pesoNeto", entity.PesoNeto);
                 parameters.AddParameter("tipoAfectacionIgvId", entity.TipoAfectacionIgvId);
                 parameters.AddParameter("tipoIscId", entity.TipoIscId);
-                parameters.AddParameter("usuarioAccionId", entity.UsuarioCreacionId);
+                parameters.AddParameter("usuarioAccionId", entity.UsuarioCreacionId > 0 ? entity.UsuarioCreacionId : (entity.UsuarioModificacionId ?? 0));
 
                 DbFactory.ExecCommand(DbCommand.Create(SP_PRE_NAME, StoredProcActionConstant.UPDATE), parameters);
 
@@ -315,7 +315,7 @@ namespace ESD.ERP.Repository.Impl
             try
             {
                 parameters.AddParameter("cotizacionProductoId", entity.CotizacionProductoId);
-                parameters.AddParameter("usuarioAccionId", entity.UsuarioCreacionId);
+                parameters.AddParameter("usuarioAccionId", entity.UsuarioCreacionId > 0 ? entity.UsuarioCreacionId : (entity.UsuarioModificacionId ?? 0));
 
                 DbFactory.ExecCommand(DbCommand.Create(SP_PRE_NAME, StoredProcActionConstant.DELETE), parameters);
 
@@ -453,7 +453,7 @@ namespace ESD.ERP.Repository.Impl
             {
                 parameters.AddParameter("cotizacionProductoId", entity.CotizacionProductoId);
                 parameters.AddParameter("sinSaldo", entity.SinSaldo);
-                parameters.AddParameter("usuarioAccionId", entity.UsuarioCreacionId);
+                parameters.AddParameter("usuarioAccionId", entity.UsuarioCreacionId > 0 ? entity.UsuarioCreacionId : (entity.UsuarioModificacionId ?? 0));
 
                 DbFactory.ExecCommand(DbCommand.Create(SP_PRE_NAME, "_actualizarSinSaldo"), parameters);
 

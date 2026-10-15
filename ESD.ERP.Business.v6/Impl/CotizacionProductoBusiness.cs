@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -160,10 +160,15 @@ namespace ESD.ERP.Business.Impl
 
 					id = cotizacionProductoRepository.Update(cotizacionProducto);
 
+					int usuarioAccionId = (dto.UsuarioModificacionId.HasValue && dto.UsuarioModificacionId.Value > 0)
+						? dto.UsuarioModificacionId.Value
+						: dto.UsuarioCreacionId;
+
 					cotizacionRepository.ActualizarMonto(new Cotizacion()
 					{
 						CotizacionId = dto.CotizacionId,
-						UsuarioCreacionId = dto.UsuarioCreacionId
+						UsuarioCreacionId = usuarioAccionId,
+						UsuarioModificacionId = usuarioAccionId
 					});
 					tx.Complete();
 				}
@@ -185,10 +190,15 @@ namespace ESD.ERP.Business.Impl
 				{
 					cotizacionProductoRepository.Delete(cotizacionProducto);
 
+					int usuarioAccionId = (dto.UsuarioModificacionId.HasValue && dto.UsuarioModificacionId.Value > 0)
+						? dto.UsuarioModificacionId.Value
+						: dto.UsuarioCreacionId;
+
 					cotizacionRepository.ActualizarMonto(new Cotizacion()
 					{
 						CotizacionId = dto.CotizacionId,
-						UsuarioCreacionId = dto.UsuarioCreacionId
+						UsuarioCreacionId = usuarioAccionId,
+						UsuarioModificacionId = usuarioAccionId
 					});
 
 					if (cotizacionProducto.Producto.FamiliaProducto.ClaseProducto.GrupoProducto
@@ -423,6 +433,8 @@ namespace ESD.ERP.Business.Impl
 				if(cotizacionProducto.Cotizacion.EsPedido == SiNoConstante.S)
 					eliminarReserva(comprobanteProductoTemp);
 
+				comprobanteProductoTemp.UsuarioCreacionId = cotizacionProducto.UsuarioCreacionId;
+				comprobanteProductoTemp.UsuarioModificacionId = cotizacionProducto.UsuarioModificacionId ?? cotizacionProducto.UsuarioCreacionId;
 				cotizacionProductoRepository.Delete(comprobanteProductoTemp);
 			}
 		}
